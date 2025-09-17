@@ -1,0 +1,9 @@
+.navbar {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: var(--shadow);
+}

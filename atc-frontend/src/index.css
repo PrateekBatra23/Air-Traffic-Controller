@@ -1,0 +1,22 @@
+:root {
+  --bg: #f9f9f9;
+  --primary: #2e86de;
+  --secondary: #54a0ff;
+  --text: #222;
+  --card-bg: #fff;
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition: 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}

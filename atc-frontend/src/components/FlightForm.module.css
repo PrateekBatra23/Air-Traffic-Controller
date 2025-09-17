@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--card-bg);
+  padding: 12px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+input, select, button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+button:hover {
+  background: #1e6acb;
+}
