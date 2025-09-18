@@ -1,0 +1,20 @@
+[
+  {
+    "flightId": "AI-101",
+    "airline": "Air India",
+    "arrivalTime": "2025-09-14T14:30:00Z",
+    "priority": "normal",
+    "status": "scheduled",
+    "runwayAssigned": null,
+    "gateAssigned": null
+  },
+  {
+    "flightId": "BA-202",
+    "airline": "British Airways",
+    "arrivalTime": "2025-09-14T14:35:00Z",
+    "priority": "vip",
+    "status": "scheduled",
+    "runwayAssigned": null,
+    "gateAssigned": null
+  }
+]
