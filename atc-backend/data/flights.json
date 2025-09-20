@@ -16,5 +16,14 @@
     "status": "scheduled",
     "runwayAssigned": null,
     "gateAssigned": null
+  },
+  {
+    "flightId": "EK-303",
+    "airline": "Emirates",
+    "arrivalTime": "2025-09-14T14:40:00Z",
+    "priority": "normal",
+    "status": "scheduled",
+    "runwayAssigned": null,
+    "gateAssigned": null
   }
 ]

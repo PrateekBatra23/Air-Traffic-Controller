@@ -5,55 +5,51 @@ const path = require("path");
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-async function simulateFlight(socket, flight) {
-  const flightId = flight.flightId;
 
-  await sleep(2000);
-  socket.emit("flightLanded", {
-    flightId,
-    runway: "RW-1",
-    status: "landed",
-    timestamp: new Date().toISOString()
-  });
+let runwayBusyUntil = Date.now();
 
-  await sleep(2000);
-  socket.emit("taxiwayInStart", {
-    flightId,
-    from: "RW-1",
-    to: "G-5",
-    timestamp: new Date().toISOString()
-  });
+const approachTime = 3000; 
+const landingTime = 2000;  
 
-  await sleep(2000);
-  socket.emit("gateAssigned", {
-    flightId,
-    gate: "G-5",
-    status: "docked",
-    timestamp: new Date().toISOString()
-  });
+async function handleFlight(flight, socket) {
+  
+  while(runwayBusyUntil> Date.now() + approachTime) {
+    await sleep(runwayBusyUntil-Date.now())
+  } 
+  const currentTime = Date.now();
+  runwayBusyUntil=currentTime+approachTime+landingTime;
+      
+    socket.emit("clearedForLanding", {
+      flightId: flight.flightId,
+      timestamp: new Date().toISOString()
+    });
+    
+    await sleep(approachTime);
+    
+    socket.emit("Touchdown",{
+      flightId: flight.flightId,
+      runway:"RW-1",
+      status:"Touchdown Complete",
+      timestamp:new Date().toISOString()
+    });
+  
+    await sleep(landingTime);
+    
+    socket.emit("enteredTaxiway", {
+      flightId: flight.flightId,
+      runway: "RW-1",
+      status: "landed → taxiway",
+      timestamp: new Date().toISOString()
+    });
+    await sleep(500);
 
+}
 
-  await sleep(3000);
-  socket.emit("gateReleased", {
-    flightId,
-    gate: "G-5",
-    timestamp: new Date().toISOString()
-  });
-
-  socket.emit("taxiwayOutStart", {
-    flightId,
-    from: "G-5",
-    to: "RW-1",
-    timestamp: new Date().toISOString()
-  });
-
-  await sleep(2000);
-  socket.emit("flightDeparted", {
-    flightId,
-    runway: "RW-1",
-    status: "departed",
-    timestamp: new Date().toISOString()
-  });
+async function simulateFlights(queue, socket) {
+    for (const flight of queue) {
+        handleFlight(flight, socket); 
+        await sleep(500); 
+    }
 }
 
 
@@ -65,11 +61,7 @@ module.exports = (io) => {
       fs.readFileSync(path.join(__dirname, "../data/flights.json"))
     );
 
-    flights.forEach((flight, index) => {
-      setTimeout(() => {
-        simulateFlight(socket, flight);
-      }, index * 5000);
-    });
+    simulateFlights(flights, socket);
 
     socket.on("disconnect", () => {
       console.log("Frontend disconnected:", socket.id);
