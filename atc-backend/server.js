@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
-const flightSocket = require("./sockets/flightSocket");
+const flightSocket = require("./sockets/flightHandler");
 
 const app = express();
 app.use(cors());
