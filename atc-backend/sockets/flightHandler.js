@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { handleLanding } = require("../phases/landing");
 const { handleTaxiway } = require("../phases/taxiway");
+const { handlegate } = require("../phases/gatedock");
 
 
 function sleep(ms) {
@@ -11,6 +12,7 @@ function sleep(ms) {
 async function handleFlight(flight, socket) {
   await handleLanding(flight, socket);
   await handleTaxiway(flight,socket);
+  await handlegate(flight,socket);
 }
 async function simulateFlights(queue, socket) {
     for (const flight of queue) {
@@ -18,7 +20,6 @@ async function simulateFlights(queue, socket) {
         sleep(500)
     }
 }
-
 
 module.exports = (io) => {
   io.on("connection", (socket) => {
