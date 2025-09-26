@@ -1,10 +1,52 @@
-.dashboard h2 {
-  margin-bottom: 10px;
+.dashboard {
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.panel {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  border: 1px solid #eef2f7;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.empty {
+  background-color: eff6ff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  text-align: center;
+}
+
+.hint {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 13px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
 }
 
@@ -13,9 +55,69 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 16px;
-  transition: transform var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition);
+  border: 1px solid #eef2f7;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
 }
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.flightId {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.meta {
+  display: grid;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.label {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 10px;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+/* Priority */
+.priority-normal { background: #eef2ff; color: #3730a3; border-color: #c7d2fe; }
+.priority-vip { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
+.priority-emergency { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+
+/* Status */
+.status-default { background: #f3f4f6; color: #374151; border-color: #e5e7eb; }
+.status-scheduled { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; }
+.status-landed { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+.status-departed { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+.status-delayed { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+.status-canceled { background: #fee2e2; color: #991b1b; border-color: #fecaca; }

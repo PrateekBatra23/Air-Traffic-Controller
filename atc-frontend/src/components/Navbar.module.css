@@ -1,9 +1,26 @@
 .navbar {
-  background: var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 70%, #111 30%));
   color: #fff;
-  padding: 12px 20px;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 12px 0;
   box-shadow: var(--shadow);
+  border-bottom: 1px solid color-mix(in srgb, #fff 12%, transparent);
+  backdrop-filter: saturate(150%) blur(6px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-left: -100px; /* Adjust based on padding in .navbar */
 }

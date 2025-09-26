@@ -8,18 +8,23 @@ interface Props {
 function Logs({ logs }: Props) {
   return (
     <section className={styles.logs}>
-      <h2>Event Logs</h2>
-      <ul>
-        {logs.length === 0 ? (
-          <li>No events yet</li>
-        ) : (
-          logs.map((log, i) => (
-            <li key={i}>
-              <strong>{log.event}</strong> — {log.timestamp}
+      <h2 className={styles.title}>Event Logs</h2>
+
+      <div className={styles.panel}>
+
+      {logs.length === 0 ? (
+        <div className={styles.empty}>No events yet</div>
+      ) : (
+        <ul className={styles.list}>
+          {logs.map((log, i) => (
+            <li key={i} className={styles.item}>
+              <span className={styles.event}>{log.event}</span>
+              <span className={styles.time}>{log.timestamp}</span>
             </li>
-          ))
-        )}
-      </ul>
+          ))}
+        </ul>
+      )}
+      </div>
     </section>
   );
 }

@@ -8,19 +8,40 @@ interface Props {
 function Dashboard({ flights }: Props) {
   return (
     <section className={styles.dashboard}>
-      <h2>Flight Dashboard</h2>
-      <div className={styles.grid}>
+      <div className={styles.panel}>
+        <h2 className={styles.title}>Flight Dashboard</h2>
+
         {flights.length === 0 ? (
-          <p>No flights available</p>
+          <div className={styles.empty}>
+            <p>No flights available</p>
+            <p className={styles.hint}>Use the form to add a flight</p>
+          </div>
         ) : (
-          flights.map((f, i) => (
-            <div key={i} className={styles.card}>
-              <h3>{f.flightId}</h3>
-              <p><strong>Airline:</strong> {f.airline}</p>
-              <p><strong>Status:</strong> {f.status}</p>
-              <p><strong>Priority:</strong> {f.priority}</p>
-            </div>
-          ))
+          <div className={styles.grid}>
+            {flights.map((f, i) => {
+              const statusKey = `status-${String(f.status || "default").toLowerCase()}`;
+              const priorityKey = `priority-${String(f.priority || "normal").toLowerCase()}`;
+
+              return (
+                <article key={i} className={styles.card}>
+                  <div className={styles.cardHead}>
+                    <h3 className={styles.flightId}>{f.flightId}</h3>
+                    <span className={`${styles.badge} ${styles[priorityKey]}`}>{f.priority}</span>
+                  </div>
+                  <div className={styles.meta}>
+                    <div className={styles.row}>
+                      <span className={styles.label}>Airline</span>
+                      <span className={styles.value}>{f.airline}</span>
+                    </div>
+                    <div className={styles.row}>
+                      <span className={styles.label}>Status</span>
+                      <span className={`${styles.badge} ${styles[statusKey]}`}>{f.status}</span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         )}
       </div>
     </section>
