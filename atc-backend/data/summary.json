@@ -1,0 +1,96 @@
+[
+  {
+    "summaryId": 1,
+    "flights": []
+  },
+  {
+    "summaryId": 2,
+    "flights": []
+  },
+  {
+    "summaryId": 3,
+    "flights": []
+  },
+  {
+    "summaryId": 4,
+    "flights": []
+  },
+  {
+    "summaryId": 5,
+    "flights": [
+      {},
+      {},
+      {}
+    ]
+  },
+  {
+    "summaryId": 6,
+    "flights": [
+      {
+        "landingStart": "2025-09-28T13:34:12.199Z",
+        "touchdown": "2025-09-28T13:34:15.722Z",
+        "runway": "RW-1"
+      },
+      {
+        "landingStart": "2025-09-28T13:34:17.203Z",
+        "touchdown": "2025-09-28T13:34:20.719Z",
+        "runway": "RW-1"
+      },
+      {
+        "landingStart": "2025-09-28T13:34:22.218Z",
+        "touchdown": "2025-09-28T13:34:25.731Z",
+        "runway": "RW-1"
+      }
+    ]
+  },
+  {
+    "summaryId": 7,
+    "flights": [
+      {
+        "landingStart": "2025-09-29T00:59:32.876Z",
+        "touchdown": "2025-09-29T00:59:36.421Z",
+        "runway": "RW-1",
+        "taxiwayIn": "Taxiway-1",
+        "taxiwayInTime": "2025-09-29T00:59:38.422Z",
+        "gateNo": "G-1",
+        "gateAssignedTime": "2025-09-29T00:59:38.422Z",
+        "gateReleasedTime": "2025-09-29T00:59:48.430Z",
+        "taxiwayOut": "Taxiway-2",
+        "taxiwayOutTime": "2025-09-29T00:59:48.430Z",
+        "takeoffClearedTime": "2025-09-29T00:59:48.430Z",
+        "takeoffRollTime": "2025-09-29T00:59:49.443Z",
+        "departureTime": "2025-09-29T00:59:51.456Z"
+      },
+      {
+        "landingStart": "2025-09-29T00:59:37.890Z",
+        "touchdown": "2025-09-29T00:59:41.415Z",
+        "runway": "RW-1",
+        "taxiwayIn": "Taxiway-1",
+        "taxiwayInTime": "2025-09-29T00:59:43.415Z",
+        "gateNo": "G-2",
+        "gateAssignedTime": "2025-09-29T00:59:43.415Z",
+        "gateReleasedTime": "2025-09-29T00:59:53.426Z",
+        "taxiwayOut": "Taxiway-2",
+        "taxiwayOutTime": "2025-09-29T00:59:53.426Z",
+        "takeoffClearedTime": "2025-09-29T00:59:53.426Z",
+        "takeoffRollTime": "2025-09-29T00:59:54.436Z",
+        "departureTime": "2025-09-29T00:59:56.448Z"
+      },
+      {
+        "landingStart": "2025-09-29T00:59:42.901Z",
+        "touchdown": "2025-09-29T00:59:46.429Z",
+        "runway": "RW-1",
+        "taxiwayIn": "Taxiway-1",
+        "taxiwayInTime": "2025-09-29T00:59:48.429Z",
+        "gateNo": "G-3",
+        "gateAssignedTime": "2025-09-29T00:59:48.429Z",
+        "gateReleasedTime": "2025-09-29T00:59:58.432Z",
+        "taxiwayOut": "Taxiway-2",
+        "taxiwayOutTime": "2025-09-29T00:59:58.433Z",
+        "takeoffClearedTime": "2025-09-29T00:59:58.433Z",
+        "takeoffRollTime": "2025-09-29T00:59:59.446Z",
+        "departureTime": "2025-09-29T01:00:01.451Z"
+      }
+    ]
+  }
+]

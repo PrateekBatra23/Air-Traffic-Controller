@@ -33,6 +33,10 @@ async function handleLanding(flight, socket) {
     
     
     await sleep(500);
-
+    return {
+    landingStart: new Date(currentTime).toISOString(),
+    touchdown: new Date(Date.now() - landingTime).toISOString(),
+    runway: "RW-1"
+  };
 }
 module.exports = { handleLanding };
