@@ -1,95 +1,82 @@
 [
   {
     "summaryId": 1,
-    "flights": []
-  },
-  {
-    "summaryId": 2,
-    "flights": []
-  },
-  {
-    "summaryId": 3,
-    "flights": []
-  },
-  {
-    "summaryId": 4,
-    "flights": []
-  },
-  {
-    "summaryId": 5,
-    "flights": [
-      {},
-      {},
-      {}
-    ]
-  },
-  {
-    "summaryId": 6,
     "flights": [
       {
-        "landingStart": "2025-09-28T13:34:12.199Z",
-        "touchdown": "2025-09-28T13:34:15.722Z",
-        "runway": "RW-1"
-      },
-      {
-        "landingStart": "2025-09-28T13:34:17.203Z",
-        "touchdown": "2025-09-28T13:34:20.719Z",
-        "runway": "RW-1"
-      },
-      {
-        "landingStart": "2025-09-28T13:34:22.218Z",
-        "touchdown": "2025-09-28T13:34:25.731Z",
-        "runway": "RW-1"
-      }
-    ]
-  },
-  {
-    "summaryId": 7,
-    "flights": [
-      {
-        "landingStart": "2025-09-29T00:59:32.876Z",
-        "touchdown": "2025-09-29T00:59:36.421Z",
+        "flightId": "AI-101",
+        "airline": "Air India",
+        "priority": "high",
+        "scheduledLanding": "2025-09-29T14:30:00Z",
+        "landingStart": "2025-09-29T04:57:49.900Z",
+        "touchdown": "2025-09-29T04:57:53.420Z",
         "runway": "RW-1",
         "taxiwayIn": "Taxiway-1",
-        "taxiwayInTime": "2025-09-29T00:59:38.422Z",
+        "taxiwayInTime": "2025-09-29T04:57:55.420Z",
         "gateNo": "G-1",
-        "gateAssignedTime": "2025-09-29T00:59:38.422Z",
-        "gateReleasedTime": "2025-09-29T00:59:48.430Z",
+        "gateAssignedTime": "2025-09-29T04:57:55.427Z",
+        "gateReleasedTime": "2025-09-29T04:58:05.430Z",
         "taxiwayOut": "Taxiway-2",
-        "taxiwayOutTime": "2025-09-29T00:59:48.430Z",
-        "takeoffClearedTime": "2025-09-29T00:59:48.430Z",
-        "takeoffRollTime": "2025-09-29T00:59:49.443Z",
-        "departureTime": "2025-09-29T00:59:51.456Z"
+        "taxiwayOutTime": "2025-09-29T04:58:05.431Z",
+        "takeoffClearedTime": "2025-09-29T04:58:05.431Z",
+        "takeoffRollTime": "2025-09-29T04:58:06.435Z",
+        "departureTime": "2025-09-29T04:58:08.441Z"
       },
       {
-        "landingStart": "2025-09-29T00:59:37.890Z",
-        "touchdown": "2025-09-29T00:59:41.415Z",
+        "flightId": "DL-303",
+        "airline": "Delta Airlines",
+        "priority": "high",
+        "scheduledLanding": "2025-09-29T14:40:00Z",
+        "landingStart": "2025-09-29T04:57:54.902Z",
+        "touchdown": "2025-09-29T04:57:58.418Z",
         "runway": "RW-1",
         "taxiwayIn": "Taxiway-1",
-        "taxiwayInTime": "2025-09-29T00:59:43.415Z",
+        "taxiwayInTime": "2025-09-29T04:58:00.418Z",
         "gateNo": "G-2",
-        "gateAssignedTime": "2025-09-29T00:59:43.415Z",
-        "gateReleasedTime": "2025-09-29T00:59:53.426Z",
+        "gateAssignedTime": "2025-09-29T04:58:00.418Z",
+        "gateReleasedTime": "2025-09-29T04:58:10.425Z",
         "taxiwayOut": "Taxiway-2",
-        "taxiwayOutTime": "2025-09-29T00:59:53.426Z",
-        "takeoffClearedTime": "2025-09-29T00:59:53.426Z",
-        "takeoffRollTime": "2025-09-29T00:59:54.436Z",
-        "departureTime": "2025-09-29T00:59:56.448Z"
+        "taxiwayOutTime": "2025-09-29T04:58:10.426Z",
+        "takeoffClearedTime": "2025-09-29T04:58:10.426Z",
+        "takeoffRollTime": "2025-09-29T04:58:11.431Z",
+        "departureTime": "2025-09-29T04:58:13.443Z"
       },
       {
-        "landingStart": "2025-09-29T00:59:42.901Z",
-        "touchdown": "2025-09-29T00:59:46.429Z",
+        "flightId": "BA-202",
+        "airline": "British Airways",
+        "priority": "normal",
+        "scheduledLanding": "2025-09-29T14:45:00Z",
+        "landingStart": "2025-09-29T04:57:59.909Z",
+        "touchdown": "2025-09-29T04:58:03.429Z",
         "runway": "RW-1",
         "taxiwayIn": "Taxiway-1",
-        "taxiwayInTime": "2025-09-29T00:59:48.429Z",
+        "taxiwayInTime": "2025-09-29T04:58:05.429Z",
         "gateNo": "G-3",
-        "gateAssignedTime": "2025-09-29T00:59:48.429Z",
-        "gateReleasedTime": "2025-09-29T00:59:58.432Z",
+        "gateAssignedTime": "2025-09-29T04:58:05.429Z",
+        "gateReleasedTime": "2025-09-29T04:58:15.438Z",
         "taxiwayOut": "Taxiway-2",
-        "taxiwayOutTime": "2025-09-29T00:59:58.433Z",
-        "takeoffClearedTime": "2025-09-29T00:59:58.433Z",
-        "takeoffRollTime": "2025-09-29T00:59:59.446Z",
-        "departureTime": "2025-09-29T01:00:01.451Z"
+        "taxiwayOutTime": "2025-09-29T04:58:15.439Z",
+        "takeoffClearedTime": "2025-09-29T04:58:15.439Z",
+        "takeoffRollTime": "2025-09-29T04:58:16.449Z",
+        "departureTime": "2025-09-29T04:58:18.455Z"
+      },
+      {
+        "flightId": "UA-404",
+        "airline": "United Airlines",
+        "priority": "normal",
+        "scheduledLanding": "2025-09-29T14:50:00Z",
+        "landingStart": "2025-09-29T04:58:04.911Z",
+        "touchdown": "2025-09-29T04:58:08.441Z",
+        "runway": "RW-1",
+        "taxiwayIn": "Taxiway-1",
+        "taxiwayInTime": "2025-09-29T04:58:10.441Z",
+        "gateNo": "G-1",
+        "gateAssignedTime": "2025-09-29T04:58:10.441Z",
+        "gateReleasedTime": "2025-09-29T04:58:20.453Z",
+        "taxiwayOut": "Taxiway-2",
+        "taxiwayOutTime": "2025-09-29T04:58:20.454Z",
+        "takeoffClearedTime": "2025-09-29T04:58:20.454Z",
+        "takeoffRollTime": "2025-09-29T04:58:21.465Z",
+        "departureTime": "2025-09-29T04:58:23.470Z"
       }
     ]
   }

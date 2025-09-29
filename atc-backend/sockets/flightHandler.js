@@ -18,7 +18,10 @@ async function handleFlight(flight, socket,flightDB) {
   const departure=await handleTakeoff(flight,socket);
 
   const flightRecord = {
-    flightId: flight.id,
+    flightId: flight.flightId,
+    airline: flight.airline,
+    priority: flight.priority,
+    scheduledLanding: flight.scheduledLanding,
     ...landingInfo,
     ...taxiwayIn,
     ...gateInfo,
@@ -29,8 +32,15 @@ async function handleFlight(flight, socket,flightDB) {
   flightDB.push(flightRecord);
 }
 async function simulateFlights(queue, socket,flightDB) {
-    const flightPromises = queue.map(flight => handleFlight(flight, socket, flightDB));
-    
+    const priorityMap = { "high": 1, "normal": 2, "low": 3 };
+    const sortedQueue = [...queue].sort((a, b) => {
+      if (a.priority !== b.priority) {
+        return priorityMap[a.priority] - priorityMap[b.priority];
+      }
+      return new Date(a.scheduledLanding) - new Date(b.scheduledLanding);
+    });
+      
+    const flightPromises = sortedQueue.map(flight => handleFlight(flight, socket, flightDB));
     await Promise.all(flightPromises);
 }
 function saveSummary(flightDB) {
@@ -53,17 +63,10 @@ module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log("Frontend connected:", socket.id);
 
-    const flights = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "../data/flights.json"))
-    );
-    let flightDB = [];
-    (async () => {
-      await simulateFlights(flights, socket, flightDB);
-      saveSummary(flightDB);
-    })();
-
     socket.on("disconnect", () => {
       console.log("Frontend disconnected:", socket.id);
     });
   });
 };
+module.exports.simulateFlights = simulateFlights;
+module.exports.saveSummary = saveSummary;
