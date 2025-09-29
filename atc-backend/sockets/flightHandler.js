@@ -6,9 +6,7 @@ const { handleTaxiwayIn, handleTaxiwayOut } = require("../phases/taxiway");
 const { handleTakeoff } = require("../phases/takeOff");
 
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
 
 async function handleFlight(flight, socket,flightDB) {
   const landingInfo =await handleLanding(flight, socket);
@@ -50,8 +48,8 @@ function saveSummary(flightDB) {
   if (fs.existsSync(summaryFile)) {
     summaries = JSON.parse(fs.readFileSync(summaryFile, "utf-8"));
   }
-
-  const summaryId = summaries.length + 1;
+  const maxId = summaries.length > 0 ? Math.max(...summaries.map(s => s.summaryId)) : 0;
+  const summaryId = maxId + 1;
   summaries.push({ summaryId, flights: flightDB });
 
   fs.writeFileSync(summaryFile, JSON.stringify(summaries, null, 2));
