@@ -16,10 +16,9 @@ const io = new Server(server, {
 });
 const simulationRoutes = require("./routes/simulation")(io);
 
-
 app.use("/api/flights", flightRoutes);
 app.use("/api/summary", summaryRoutes);
-app.use("/api/start-simulation", simulationRoutes);
+app.use("/api/simulation", simulationRoutes);
 
 flightSocket(io);
 

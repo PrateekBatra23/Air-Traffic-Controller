@@ -22,5 +22,18 @@
     "airline": "United Airlines",
     "priority": "normal",
     "scheduledLanding": "2025-09-29T14:50:00Z"
+  },
+  {
+    "flightId": "AI-302",
+    "airline": "Air India",
+    "arrivalTime": "2025-09-23T20:20",
+    "priority": "normal",
+    "status": "scheduled"
+  },
+  {
+    "flightId": "6E-336",
+    "airline": "IndiGo",
+    "priority": "high",
+    "scheduledLanding": "2025-09-18T09:03:00.000Z"
   }
 ]

@@ -1,144 +1,83 @@
 import { useEffect, useState } from "react";
-import io, { Socket } from "socket.io-client";
+import { getFlights, getLatestSummary } from "./services/api";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import Logs from "./components/Logs";
 import FlightForm from "./components/FlightForm";
 import Controls from "./components/Controls";
 import Summary from "./components/Summary";
-import type { Flight, LogEvent, FlightSummary } from "./types";
+import type { Flight, LogEvent, FlightSummary, BackendSummary, BackendFlightRecord } from "./types";
 import "./App.css";
-
-const socket: Socket = io("http://localhost:5000");
 
 function App() {
   const [logs, setLogs] = useState<LogEvent[]>([]);
   const [flights, setFlights] = useState<Flight[]>([]);
   const [summaryData, setSummaryData] = useState<FlightSummary[]>([]);
-  const [isSimulationRunning, setIsSimulationRunning] = useState(false);
 
+
+  // Load flights and summary on mount
   useEffect(() => {
-    socket.on("simulationStarted", (msg: LogEvent) => {
-      setLogs((l) => [...l, msg]);
-      setIsSimulationRunning(true);
-    });
-
-    socket.on("simulationStopped", (msg: LogEvent) => {
-      setLogs((l) => [...l, msg]);
-      setIsSimulationRunning(false);
-    });
-
-    socket.on("flightAdded", (data: Flight) => {
-      setFlights((f) => [...f, data]);
-    });
-
-    socket.on("flightDeparted", (msg: LogEvent) => {
-      setLogs((l) => [...l, msg]);
-    });
-
-    // Listen for turnaround updates from backend
-    socket.on("turnaroundUpdate", (data: FlightSummary) => {
-      setSummaryData((prev) => {
-        const existingIndex = prev.findIndex(
-          (f) => f.flightId === data.flightId
-        );
-        if (existingIndex >= 0) {
-          // Update existing flight
-          const updated = [...prev];
-          updated[existingIndex] = data;
-          return updated;
-        } else {
-          // Add new flight
-          return [...prev, data];
-        }
-      });
-    });
-
-    return () => {
-      socket.disconnect();
-    };
+    loadFlights();
+    loadSummary();
   }, []);
 
-  // Fallback: Generate summary data from current flights if backend doesn't send it
-  useEffect(() => {
-    if (isSimulationRunning && flights.length > 0) {
-      const newSummary = flights.map((flight) => {
-        const arrivalDate = new Date(flight.arrivalTime);
-        const existingSummary = summaryData.find(
-          (s) => s.flightId === flight.flightId
-        );
+  const loadFlights = async () => {
+    try {
+      const response = await getFlights();
+      setFlights(response.data);
+    } catch (error) {
+      console.error("Failed to load flights:", error);
+    }
+  };
 
-        // If we already have data for this flight, keep it
-        if (existingSummary) {
-          return existingSummary;
-        }
-
-        // Otherwise create new summary entry
+  const loadSummary = async () => {
+    try {
+      const response = await getLatestSummary();
+      const backendSummary: BackendSummary = response.data;
+      
+      // Convert backend format to frontend format
+      const formattedSummary: FlightSummary[] = backendSummary.flights.map((flight: BackendFlightRecord) => {
+        const touchdown = new Date(flight.touchdown);
+        const departure = new Date(flight.departureTime);
+        const turnaroundMinutes = Math.round((departure.getTime() - touchdown.getTime()) / 60000);
+        
         return {
           flightId: flight.flightId,
-          date: arrivalDate.toLocaleDateString(),
+          date: touchdown.toLocaleDateString(),
           airline: flight.airline,
-          touchdownTime:
-            flight.status === "landing" ||
-            flight.status === "taxiing" ||
-            flight.status === "docked" ||
-            flight.status === "departed"
-              ? arrivalDate.toLocaleTimeString()
-              : "",
-          taxiwayInTime:
-            flight.status === "taxiing" ||
-            flight.status === "docked" ||
-            flight.status === "departed"
-              ? new Date(arrivalDate.getTime() + 2 * 60000).toLocaleTimeString()
-              : "",
-          gateDockTime:
-            flight.status === "docked" || flight.status === "departed"
-              ? new Date(arrivalDate.getTime() + 7 * 60000).toLocaleTimeString()
-              : "",
-          gateAllotted:
-            flight.status === "docked" || flight.status === "departed"
-              ? `Gate ${Math.floor(Math.random() * 20) + 1}`
-              : "",
-          gateUndockTime:
-            flight.status === "departed"
-              ? new Date(
-                  arrivalDate.getTime() + 45 * 60000
-                ).toLocaleTimeString()
-              : "",
-          taxiwayOutTime:
-            flight.status === "departed"
-              ? new Date(
-                  arrivalDate.getTime() + 47 * 60000
-                ).toLocaleTimeString()
-              : "",
-          clearanceTime:
-            flight.status === "departed"
-              ? new Date(
-                  arrivalDate.getTime() + 52 * 60000
-                ).toLocaleTimeString()
-              : "",
-          takeoffTime:
-            flight.status === "departed"
-              ? new Date(
-                  arrivalDate.getTime() + 55 * 60000
-                ).toLocaleTimeString()
-              : "",
-          totalTurnaroundTime:
-            flight.status === "departed" ? "55 mins" : "In Progress",
+          touchdownTime: touchdown.toLocaleTimeString(),
+          taxiwayInTime: new Date(flight.taxiwayInTime).toLocaleTimeString(),
+          gateDockTime: new Date(flight.gateAssignedTime).toLocaleTimeString(),
+          gateAllotted: flight.gateNo,
+          gateUndockTime: new Date(flight.gateReleasedTime).toLocaleTimeString(),
+          taxiwayOutTime: new Date(flight.taxiwayOutTime).toLocaleTimeString(),
+          clearanceTime: new Date(flight.takeoffClearedTime).toLocaleTimeString(),
+          takeoffTime: new Date(flight.departureTime).toLocaleTimeString(),
+          totalTurnaroundTime: `${turnaroundMinutes} mins`,
         };
       });
-
-      setSummaryData(newSummary);
+      
+      setSummaryData(formattedSummary);
+    } catch (error) {
+      console.error("Failed to load summary:", error);
+      // Don't show error if no summary exists yet
+      setSummaryData([]);
     }
-  }, [flights, isSimulationRunning]);
+  };
+
+  const handleFlightAdded = () => {
+    loadFlights(); // Reload flights after adding
+  };
 
   const handleSimulationStart = () => {
-    setIsSimulationRunning(true);
+    // Simulation started
   };
 
   const handleSimulationStop = () => {
-    setIsSimulationRunning(false);
-    // Summary data persists after simulation stops
+    // Reload summary after simulation stops
+    setTimeout(() => {
+      loadSummary();
+    }, 1000);
   };
 
   return (
@@ -149,8 +88,9 @@ function App() {
           setLogs={setLogs}
           onStart={handleSimulationStart}
           onStop={handleSimulationStop}
+          onSimulationComplete={loadSummary}
         />
-        <FlightForm />
+        <FlightForm onFlightAdded={handleFlightAdded} />
         <Dashboard flights={flights} />
         <Summary summaryData={summaryData} />
         <Logs logs={logs} />

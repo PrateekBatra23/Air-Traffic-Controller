@@ -3,7 +3,11 @@ import { addFlight } from "../services/api";
 import type { Flight } from "../types";
 import styles from "./FlightForm.module.css";
 
-function FlightForm() {
+interface Props {
+  onFlightAdded?: () => void;
+}
+
+function FlightForm({ onFlightAdded }: Props) {
   const [flight, setFlight] = useState<Partial<Flight>>({
     flightId: "",
     airline: "",
@@ -38,8 +42,19 @@ function FlightForm() {
     }
     try {
       setSubmitting(true);
-      await addFlight(flight as Flight);
+      
+      // Convert arrivalTime to ISO format for scheduledLanding
+      const flightData = {
+        flightId: flight.flightId!,
+        airline: flight.airline!,
+        priority: flight.priority!,
+        scheduledLanding: new Date(flight.arrivalTime!).toISOString(),
+      };
+      
+      await addFlight(flightData as any);
       alert("Flight added successfully!");
+      
+      // Reset form
       setFlight({
         flightId: "",
         airline: "",
@@ -47,6 +62,12 @@ function FlightForm() {
         priority: "normal" as any,
         status: "scheduled" as any,
       });
+      
+      // Notify parent to reload flights
+      onFlightAdded?.();
+    } catch (error) {
+      console.error("Failed to add flight:", error);
+      alert("Failed to add flight. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -84,21 +105,21 @@ function FlightForm() {
         {errors.airline && <p className={styles.error}>{errors.airline}</p>}
       </div>
 
-  <div className={styles.field}>
-  <label htmlFor="arrivalTime">Arrival time</label>
-  <input
-    id="arrivalTime"
-    name="arrivalTime"
-    type="datetime-local"
-    className={styles.datetime}
-    placeholder="Select arrival time"
-    value={flight.arrivalTime || ""}
-    onChange={handleChange}
-    required
-    aria-invalid={!!errors.arrivalTime}
-  />
-  {errors.arrivalTime && <p className={styles.error}>{errors.arrivalTime}</p>}
-</div>
+      <div className={styles.field}>
+        <label htmlFor="arrivalTime">Arrival time</label>
+        <input
+          id="arrivalTime"
+          name="arrivalTime"
+          type="datetime-local"
+          className={styles.datetime}
+          placeholder="Select arrival time"
+          value={flight.arrivalTime || ""}
+          onChange={handleChange}
+          required
+          aria-invalid={!!errors.arrivalTime}
+        />
+        {errors.arrivalTime && <p className={styles.error}>{errors.arrivalTime}</p>}
+      </div>
 
       <div className={styles.field}>
         <label htmlFor="priority">Priority</label>
@@ -109,8 +130,8 @@ function FlightForm() {
           onChange={handleChange}
         >
           <option value="normal">Normal</option>
-          <option value="vip">VIP</option>
-          <option value="emergency">Emergency</option>
+          <option value="high">High</option>
+          <option value="low">Low</option>
         </select>
       </div>
 

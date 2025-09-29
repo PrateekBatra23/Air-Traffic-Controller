@@ -19,8 +19,10 @@ function Dashboard({ flights }: Props) {
         ) : (
           <div className={styles.grid}>
             {flights.map((f, i) => {
-              const statusKey = `status-${String(f.status || "default").toLowerCase()}`;
               const priorityKey = `priority-${String(f.priority || "normal").toLowerCase()}`;
+              const scheduledTime = f.scheduledLanding 
+                ? new Date(f.scheduledLanding).toLocaleString()
+                : "Not scheduled";
 
               return (
                 <article key={i} className={styles.card}>
@@ -34,8 +36,8 @@ function Dashboard({ flights }: Props) {
                       <span className={styles.value}>{f.airline}</span>
                     </div>
                     <div className={styles.row}>
-                      <span className={styles.label}>Status</span>
-                      <span className={`${styles.badge} ${styles[statusKey]}`}>{f.status}</span>
+                      <span className={styles.label}>Scheduled</span>
+                      <span className={styles.value}>{scheduledTime}</span>
                     </div>
                   </div>
                 </article>

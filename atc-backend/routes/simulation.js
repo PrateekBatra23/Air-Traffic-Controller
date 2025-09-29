@@ -4,10 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const flightSocket = require("../sockets/flightHandler");
 
-
 module.exports = (io) => {
-
-  router.post("/", async (req, res) => {
+  router.post("/start", async (req, res) => {
     const { socketId } = req.body;
     const socket = io.sockets.sockets.get(socketId);
     if (!socket) {
